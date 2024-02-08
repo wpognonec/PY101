@@ -1,51 +1,69 @@
-def prompt(message):
+import json
+
+# en / es / fr
+LANGUAGE = 'en'
+
+with open('calculator_messages.json', 'r') as file:
+    MESSAGES = json.load(file)
+
+def prompt(key):
+    message = messages(key)
     print(f"=> {message}")
 
+def messages(message):
+    return MESSAGES[LANGUAGE][message]
 
 def invalid_number(number_str):
     try:
-        int(number_str)
+        float(number_str)
     except ValueError:
+        return True
+    except TypeError:
         return True
 
     return False
 
+def get_value(key):
+    value_str = None
 
-prompt("Welcome to Calculator!")
+    if key == 'operation':
+        while value_str not in ["1", "2", "3", "4"]:
+            if value_str:
+                prompt("wrong_choice")
+            prompt(key)
+            value_str = input()
+    else:
+        while invalid_number(value_str):
+            if value_str:
+                prompt("invalid_number")
+            prompt(key)
+            value_str = input()
 
-# Ask the user for the first number
-prompt("Provide the first number: ")
-number1 = input()
+    return value_str
 
-while invalid_number(number1):
-    prompt("Hmm... that doesn't look like a valid number")
-    number1 = input()
+prompt("welcome")
 
-prompt("Provide the second number: ")
-number2 = input()
+while True:
 
-while invalid_number(number2):
-    prompt("Hmm... that doesn't look like a valid number")
-    number2 = input()
+    number1 = get_value("first_number")
+    number2 = get_value("second_number")
+    operation = get_value("operation")
 
-prompt(
-    "What operation would you like to perform?\
-    \n1) Add\n2) Subtract\n3) Multiply\n4) Divide"
-)
-operation = input()
+    match operation:
+        case "1":
+            output = float(number1) + float(number2)
+        case "2":
+            output = float(number1) - float(number2)
+        case "3":
+            output = float(number1) * float(number2)
+        case "4":
+            output = float(number1) / float(number2)
 
-while operation not in ["1", "2", "3", "4"]:
-    prompt("You must choose 1, 2, 3, or 4")
-    operation = input()
+    output = round(output, 2)
 
-match operation:
-    case "1":
-        output = int(number1) + int(number2)
-    case "2":
-        output = int(number1) - int(number2)
-    case "3":
-        output = int(number1) * int(number2)
-    case "4":
-        output = int(number1) / int(number2)
+    print("=> " + messages("result").format(output=output))
 
-prompt(f"The result is: {output}")
+    prompt("go_again")
+    answer = input()
+    if answer and answer[0].lower() != 'y':
+        break

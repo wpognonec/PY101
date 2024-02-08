@@ -1,0 +1,33 @@
+{
+    "en": {
+        "welcome": "Welcome to Calculator!",
+        "first_number": "Provide the first number: ",
+        "second_number": "Provide the second number: ",
+        "invalid_number": "Hmm... that doesn't look like a valid number",
+        "operation": "What operation would you like to perform?\n1) Add\n2) Subtract\n3) Multiply\n4) Divide",
+        "wrong_choice": "You must choose 1, 2, 3, or 4",
+        "go_again": "Would you like to use the calculator again? y/n: ",
+        "result": "The result is: {output}",
+        "language": "What language would you prefer? en/fr/es"
+    },
+    "fr": {
+        "welcome": "Bienvenue sur Calculatrice !",
+        "first_number": "Fournissez le premier numéro: ",
+        "second_number": "Fournissez le deuxième numéro: ",
+        "invalid_number": "Hmm... ça ne ressemble pas à un numéro valide",
+        "operation": "Quelle opération souhaitez-vous effectuer?\n1) Ajouter\n2) Soustraire\n3) Multiplier\n4) Diviser",
+        "wrong_choice": "Vous devez choisir 1, 2, 3 ou 4",
+        "go_again": "Souhaitez-vous réutiliser la calculatrice? y/n: ",
+        "result": "Le resulta est: {output}"
+    },
+    "es": {
+        "welcome": "¡Bienvenido a Calculadora!",
+        "first_number": "Proporcione el primer número: ",
+        "second_number": "Proporcione el segundo número: ",
+        "invalid_number": "Hmm... ese no parece un número válido",
+        "operation": "¿Qué operación te gustaría realizar?\n1) Sumar\n2) Restar\n3) Multiplicar\n4) Dividir",
+        "wrong_choice": "Debes elegir 1, 2, 3 o 4",
+        "go_again": "¿Quieres volver a utilizar la calculadora? y/n: ",
+        "result": "El resulto es: {output}"
+    }
+}
