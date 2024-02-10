@@ -1,6 +1,19 @@
 import random
 
-VALID_CHOICES = ["rock", "paper", "scissors"]
+VALID_CHOICES = ("rock", "paper", "scissors", "Spock", "Lizard")
+
+WIN_COMBO = (
+    ("rock", "scissors"),
+    ("rock", "Lizard"),
+    ("paper", "rock"),
+    ("paper", "Spock"),
+    ("scissors", "paper"),
+    ("scissors", "Lizard"),
+    ("Spock", "rock"),
+    ("Spock", "scissors"),
+    ("Lizard", "paper"),
+    ("Lizard", "Spock"),
+)
 
 
 def prompt(msg):
@@ -10,20 +23,12 @@ def prompt(msg):
 def display_winner(choice, computer_choice):
     prompt(f"You chose {choice}, computer chooses {computer_choice}")
 
-    if (
-        (choice == "rock" and computer_choice == "scissors")
-        or (choice == "paper" and computer_choice == "rock")
-        or (choice == "scissors" and computer_choice == "paper")
-    ):
-        prompt("You win!")
-    elif (
-        (choice == "rock" and computer_choice == "paper")
-        or (choice == "paper" and computer_choice == "scissors")
-        or (choice == "scissors" and computer_choice == "rock")
-    ):
-        prompt("Computer wins!")
+    if (choice, computer_choice) in WIN_COMBO:
+        prompt('You win!')
+    elif choice == computer_choice:
+        prompt('It\'s a tie!')
     else:
-        prompt("It's a tie!")
+        prompt('You loose!')
 
 
 answer = "y"
