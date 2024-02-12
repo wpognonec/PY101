@@ -136,5 +136,5 @@ def play():
         choice = get_yes_no()
         if choice[0] == "n":
             break
-
+        os.system(CLEAR)
 intro()
