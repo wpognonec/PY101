@@ -92,6 +92,7 @@ def get_yes_no():
             break
     return _choice
 
+
 def display_rules():
     prompt('''Best of 3 wins.
     - Scissors cuts Paper
