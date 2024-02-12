@@ -51,7 +51,7 @@ def format_choice(_choice):
 def get_winner(_choice, _computer_choice):
     if _computer_choice in WIN_COMBO[_choice]:
         return "player"
-    if _choice == computer_choice:
+    if _choice == _computer_choice:
         return "tie"
     return "computer"
 
@@ -82,9 +82,8 @@ def display_score(_scores):
         prompt("The computer has won the game!")
 
 
-def play_again():
+def get_yes_no():
     while True:
-        prompt("Would you like to play again? (y/n):")
         _choice = input("==> ").lower()
         if _choice not in ["y", "n"]:
             os.system(CLEAR)
@@ -93,21 +92,48 @@ def play_again():
             break
     return _choice
 
+def display_rules():
+    prompt('''Best of 3 wins.
+    - Scissors cuts Paper
+    - Paper covers Rock
+    - Rock crushes Lizard
+    - Lizard poisons Spock
+    - Spock smashes Scissors
+    - Scissors decapitates Lizard
+    - Lizard eats Paper
+    - Paper disproves Spock
+    - Spock vaporizes Rock
+    - Rock crushes Scissors
+    ''')
 
-while True:
+
+def intro():
     os.system(CLEAR)
-    scores = {"player": 0, "computer": 0}
-    while scores["player"] != 3 and scores["computer"] != 3:
-        choice = get_choice()
-        computer_choice = random.choice(list(CHOICES.values()))
+    prompt("Welcome to Rock Paper Scissors Lizard Spock!")
+    prompt("Would you like to see the rules? (y/n)")
+    choice = get_yes_no()
+    if choice[0] == "y":
+        display_rules()
+    play()
 
-        os.system(CLEAR)
-        prompt(f"You chose {choice}, computer chooses {computer_choice}")
-        winner = get_winner(choice, computer_choice)
-        display_winner(winner)
-        update_scores(winner, scores)
-        display_score(scores)
 
-    choice = play_again()
-    if choice[0] == "n":
-        break
+def play():
+    while True:
+        scores = {"player": 0, "computer": 0}
+        while scores["player"] != 3 and scores["computer"] != 3:
+            choice = get_choice()
+            computer_choice = random.choice(list(CHOICES.values()))
+
+            os.system(CLEAR)
+            prompt(f"You chose {choice}, computer chooses {computer_choice}")
+            winner = get_winner(choice, computer_choice)
+            display_winner(winner)
+            update_scores(winner, scores)
+            display_score(scores)
+
+        prompt("Would you like to play again? (y/n):")
+        choice = get_yes_no()
+        if choice[0] == "n":
+            break
+
+intro()
