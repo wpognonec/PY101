@@ -30,34 +30,34 @@ def get_choice():
             "Choose one: "
             + ", ".join([format_choice(item) for item in CHOICES.values()])
         )
-        _choice = input("==> ").lower()
+        choice = input("==> ").lower()
 
-        if _choice in CHOICES:
-            return CHOICES[_choice]
-        if _choice in CHOICES.values():
-            return _choice
+        if choice in CHOICES:
+            return CHOICES[choice]
+        if choice in CHOICES.values():
+            return choice
         os.system(CLEAR)
-        prompt(f"{_choice} is not a valid choice.")
+        prompt(f"{choice} is not a valid choice.")
 
 
-def format_choice(_choice):
-    if _choice == "spock":
+def format_choice(choice):
+    if choice == "spock":
         formatted_choice = "(Sp)ock"
     else:
-        formatted_choice = f"({_choice[0].upper()}){_choice[1:]}"
+        formatted_choice = f"({choice[0].upper()}){choice[1:]}"
     return formatted_choice
 
 
-def get_winner(_choice, _computer_choice):
-    if _computer_choice in WIN_COMBO[_choice]:
+def get_winner(choice, computer_choice):
+    if computer_choice in WIN_COMBO[choice]:
         return "player"
-    if _choice == _computer_choice:
+    if choice == computer_choice:
         return "tie"
     return "computer"
 
 
-def display_winner(_winner):
-    match _winner:
+def display_winner(winner):
+    match winner:
         case "player":
             prompt("You win!")
         case "computer":
@@ -66,31 +66,31 @@ def display_winner(_winner):
             prompt("It's a tie!")
 
 
-def update_scores(_winner, _scores):
-    match _winner:
+def update_scores(winner, scores):
+    match winner:
         case "player":
-            _scores["player"] += 1
+            scores["player"] += 1
         case "computer":
-            _scores["computer"] += 1
+            scores["computer"] += 1
 
 
-def display_score(_scores):
-    prompt(f'The current score is {_scores["player"]}-{_scores["computer"]}')
-    if _scores["player"] == 3:
+def display_score(scores):
+    prompt(f'The current score is {scores["player"]}-{scores["computer"]}')
+    if scores["player"] == 3:
         prompt("You have won the game!")
-    elif _scores["computer"] == 3:
+    elif scores["computer"] == 3:
         prompt("The computer has won the game!")
 
 
 def get_yes_no():
     while True:
-        _choice = input("==> ").lower()
-        if _choice not in ["y", "n"]:
+        choice = input("==> ").lower()
+        if choice not in ["y", "n"]:
             os.system(CLEAR)
             prompt("Please enter 'y' or 'n'")
         else:
             break
-    return _choice
+    return choice
 
 
 def display_rules():
