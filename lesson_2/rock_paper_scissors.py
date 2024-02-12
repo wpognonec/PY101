@@ -5,19 +5,18 @@ CHOICES = {
     "r": "rock",
     "p": "paper",
     "s": "scissors",
-    "sp": "spock",
     "l": "lizard",
+    "sp": "spock",
 }
 
 WIN_COMBO = {
-    "rock": ["scissors","lizard"],
+    "rock": ["scissors", "lizard"],
     "paper": ["rock", "spock"],
     "scissors": ["paper", "lizard"],
-    "spock": ["rock", "scissors"],
     "lizard": ["paper", "spock"],
+    "spock": ["rock", "scissors"],
 }
 
-# scores = {"player": 0, "computer": 0}
 clear = "cls" if os.name == "nt" else "clear"
 
 
@@ -27,8 +26,10 @@ def prompt(msg):
 
 def get_choice():
     while True:
-        prompt(f'Choose one: {", ".join([format_choice(item) for item in CHOICES.values()])}')
-        choice = input().lower()
+        prompt(
+            f'Choose one: {", ".join([format_choice(item) for item in CHOICES.values()])}'
+        )
+        choice = input("==> ").lower()
 
         if choice in CHOICES.keys():
             return CHOICES[choice]
@@ -43,28 +44,18 @@ def format_choice(choice):
     if choice == "spock":
         formatted_choice = "(Sp)ock"
     else:
-        formatted_choice = f'({choice[0].upper()}){choice[1:]}'
+        formatted_choice = f"({choice[0].upper()}){choice[1:]}"
     return formatted_choice
 
-# def display_winner(choice, computer_choice, scores):
-#     prompt(f"You chose {choice}, computer chooses {computer_choice}")
-#     if computer_choice in WIN_COMBO[choice]:
-#         scores["player"] += 1
-#         prompt("You win this round!")
-#     elif choice == computer_choice:
-#         prompt("It's a tie!")
-#     else:
-#         scores["computer"] += 1
-#         prompt("You loose this round!")
 
 def get_winner(choice, computer_choice):
-    prompt(f"You chose {choice}, computer chooses {computer_choice}")
     if computer_choice in WIN_COMBO[choice]:
         return "player"
     elif choice == computer_choice:
         return "tie"
     else:
         return "computer"
+
 
 def display_winner(winner):
     match winner:
@@ -75,6 +66,7 @@ def display_winner(winner):
         case "tie":
             prompt("It's a tie!")
 
+
 def update_scores(winner, scores):
     match winner:
         case "player":
@@ -82,23 +74,42 @@ def update_scores(winner, scores):
         case "computer":
             scores["computer"] += 1
 
+
 def display_score(scores):
     prompt(f'The current score is {scores["player"]}-{scores["computer"]}')
-    if scores["player"] == 5:
+    if scores["player"] == 3:
         prompt("You have won the game!")
-    elif scores["computer"] == 5:
+    elif scores["computer"] == 3:
         prompt("The computer has won the game!")
 
 
-os.system(clear)
-scores = {"player": 0, "computer": 0}
-while scores["player"] != 3 and scores["computer"] != 3:
+def play_again():
+    while True:
+        prompt("Would you like to play again? (y/n):")
+        choice = input("==> ").lower()
+        if choice != "y" and choice != "n":
+            os.system(clear)
+            prompt("Please enter 'y' or 'n'")
+        else:
+            break
+    return choice
 
-    choice = get_choice()
-    computer_choice = random.choice(list(CHOICES.values()))
 
+while True:
     os.system(clear)
-    winner = get_winner(choice, computer_choice)
-    display_winner(winner)
-    update_scores(winner, scores)
-    display_score(scores)
+    scores = {"player": 0, "computer": 0}
+    while scores["player"] != 3 and scores["computer"] != 3:
+        choice = get_choice()
+        computer_choice = random.choice(list(CHOICES.values()))
+
+        os.system(clear)
+        prompt(f"You chose {choice}, computer chooses {computer_choice}")
+        winner = get_winner(choice, computer_choice)
+        display_winner(winner)
+        update_scores(winner, scores)
+        display_score(scores)
+
+    choice = play_again()
+
+    if choice[0] == "n":
+        break
