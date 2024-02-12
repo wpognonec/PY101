@@ -91,7 +91,7 @@ def play_again():
             prompt("Please enter 'y' or 'n'")
         else:
             break
-    return choice
+    return _choice
 
 
 while True:
@@ -109,6 +109,5 @@ while True:
         display_score(scores)
 
     choice = play_again()
-
     if choice[0] == "n":
         break
