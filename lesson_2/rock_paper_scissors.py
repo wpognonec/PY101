@@ -27,7 +27,8 @@ def prompt(msg):
 def get_choice():
     while True:
         prompt(
-            f'Choose one: {", ".join([format_choice(item) for item in CHOICES.values()])}'
+            "Choose one: "
+            + ", ".join([format_choice(item) for item in CHOICES.values()])
         )
         choice = input("==> ").lower()
 
