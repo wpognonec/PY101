@@ -19,10 +19,8 @@ WIN_COMBO = {
 
 CLEAR = "cls" if os.name == "nt" else "clear"
 
-
 def prompt(msg):
     print(f"==> {msg}")
-
 
 def get_choice():
     while True:
@@ -39,7 +37,6 @@ def get_choice():
         os.system(CLEAR)
         prompt(f"{choice} is not a valid choice.")
 
-
 def format_choice(choice):
     if choice == "spock":
         formatted_choice = "(Sp)ock"
@@ -47,14 +44,12 @@ def format_choice(choice):
         formatted_choice = f"({choice[0].upper()}){choice[1:]}"
     return formatted_choice
 
-
 def get_winner(choice, computer_choice):
     if computer_choice in WIN_COMBO[choice]:
         return "player"
     if choice == computer_choice:
         return "tie"
     return "computer"
-
 
 def display_winner(winner):
     match winner:
@@ -65,7 +60,6 @@ def display_winner(winner):
         case "tie":
             prompt("It's a tie!")
 
-
 def update_scores(winner, scores):
     match winner:
         case "player":
@@ -73,14 +67,12 @@ def update_scores(winner, scores):
         case "computer":
             scores["computer"] += 1
 
-
 def display_score(scores):
     prompt(f'The current score is {scores["player"]}-{scores["computer"]}')
     if scores["player"] == 3:
         prompt("You have won the game!")
     elif scores["computer"] == 3:
         prompt("The computer has won the game!")
-
 
 def get_yes_no():
     while True:
@@ -91,7 +83,6 @@ def get_yes_no():
         else:
             break
     return choice
-
 
 def display_rules():
     prompt('''Best of 3 wins.
@@ -107,7 +98,6 @@ def display_rules():
     - Rock crushes Scissors
     ''')
 
-
 def intro():
     os.system(CLEAR)
     prompt("Welcome to Rock Paper Scissors Lizard Spock!")
@@ -116,7 +106,6 @@ def intro():
     if choice[0] == "y":
         display_rules()
     play()
-
 
 def play():
     while True:
@@ -137,4 +126,5 @@ def play():
         if choice[0] == "n":
             break
         os.system(CLEAR)
+
 intro()
