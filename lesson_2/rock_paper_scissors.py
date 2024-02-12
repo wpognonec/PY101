@@ -103,9 +103,9 @@ while True:
 
         os.system(CLEAR)
         prompt(f"You chose {choice}, computer chooses {computer_choice}")
-        WINNER = get_winner(choice, computer_choice)
-        display_winner(WINNER)
-        update_scores(WINNER, scores)
+        winner = get_winner(choice, computer_choice)
+        display_winner(winner)
+        update_scores(winner, scores)
         display_score(scores)
 
     choice = play_again()
