@@ -5,8 +5,8 @@ import json
 with open('rps_strings.json', 'r') as file:
     DATA = json.load(file)
 
-CHOICES = DATA["choices"]
-WIN_COMBO = DATA["win_combos"]
+CHOICES: dict = DATA["choices"]
+WIN_COMBO: dict = DATA["win_combos"]
 CLEAR = "cls" if os.name == "nt" else "clear"
 
 def prompt(msg):
@@ -14,11 +14,9 @@ def prompt(msg):
 
 def input_choice():
     while True:
-        prompt(
-            "Choose one: "
-            + ", ".join([format_choice(item, parens=True)
-                         for item in CHOICES.values()])
-        )
+        formatted_choices = [format_choice(item, parens=True)
+                             for item in CHOICES.values()]
+        prompt("Choose one: " + ", ".join(formatted_choices))
         choice = input("==> ").lower()
 
         if choice in CHOICES:
@@ -39,7 +37,7 @@ def input_yes_no():
             break
     return choice
 
-def format_choice(choice, parens=False):
+def format_choice(choice: str, parens=False):
     if parens and choice == "spock":
         formatted_choice = "(Sp)ock"
     elif parens:
@@ -117,8 +115,8 @@ def display_games_played(game_number):
 
 def intro():
     os.system(CLEAR)
-    prompt(f"Welcome to {" ".join([format_choice(item)
-                                   for item in CHOICES.values()])}!")
+    choices = [format_choice(item) for item in CHOICES.values()]
+    prompt(f"Welcome to {" ".join(choices)}!")
     prompt("Would you like to see the rules? (y/n)")
     choice = input_yes_no()
     if choice[0] == "y":
