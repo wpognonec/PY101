@@ -100,6 +100,18 @@ def play_again():
         return False
     return True
 
+def play_round(scores):
+    prompt("Best of 3 wins!")
+    choice = input_choice()
+    computer_choice = random.choice(list(CHOICES.values()))
+
+    os.system(CLEAR)
+    display_choices(choice, computer_choice)
+    winner = get_winner(choice, computer_choice)
+    display_winner(winner)
+    update_scores(winner, scores)
+    display_score(scores)    
+
 def intro():
     os.system(CLEAR)
     prompt(f"Welcome to {" ".join([format_choice(item)
@@ -109,25 +121,16 @@ def intro():
     if choice[0] == "y":
         display_rules()
 
-def play():
+def main():
     intro()
     while True:
         scores = {"player": 0, "computer": 0}
         while scores["player"] != 3 and scores["computer"] != 3:
-            prompt("Best of 3 wins!")
-            choice = input_choice()
-            computer_choice = random.choice(list(CHOICES.values()))
-
-            os.system(CLEAR)
-            display_choices(choice, computer_choice)
-            winner = get_winner(choice, computer_choice)
-            display_winner(winner)
-            update_scores(winner, scores)
-            display_score(scores)
+            play_round(scores)
 
         if not play_again():
             break
 
         os.system(CLEAR)
 
-play()
+main()
