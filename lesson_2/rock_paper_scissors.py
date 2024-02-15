@@ -110,7 +110,7 @@ def play_round(scores):
     winner = get_winner(choice, computer_choice)
     display_winner(winner)
     update_scores(winner, scores)
-    display_score(scores)    
+    display_score(scores)
 
 def intro():
     os.system(CLEAR)
