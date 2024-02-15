@@ -25,7 +25,6 @@ def input_choice():
             return CHOICES[choice]
         if choice in CHOICES.values():
             return choice
-        os.system(CLEAR)
         prompt(
             f"{choice} is not a valid choice." if choice
             else "You must enter a choice"
@@ -35,7 +34,6 @@ def input_yes_no():
     while True:
         choice = input("==> ").lower()
         if choice not in ["y", "n"]:
-            os.system(CLEAR)
             prompt("Please enter 'y' or 'n'")
         else:
             break
@@ -92,12 +90,13 @@ def update_scores(winner, scores):
         case "computer":
             scores["computer"] += 1
 
-def play_again():
-    prompt("Would you like to play again? (y/n):")
-    choice = input_yes_no()
-    if choice[0] == "n":
-        prompt("Thank you for playing!")
-        return False
+def play_again(game_number):
+    if game_number:
+        prompt("Would you like to play again? (y/n):")
+        choice = input_yes_no()
+        if choice[0] == "n":
+            prompt("Thank you for playing!")
+            return False
     return True
 
 def play_round(scores):
@@ -112,6 +111,10 @@ def play_round(scores):
     update_scores(winner, scores)
     display_score(scores)
 
+def display_games_played(game_number):
+    game_string = "games" if game_number > 1 else "game"
+    prompt(f"You have played {game_number} {game_string} total!")
+
 def intro():
     os.system(CLEAR)
     prompt(f"Welcome to {" ".join([format_choice(item)
@@ -122,15 +125,14 @@ def intro():
         display_rules()
 
 def main():
+    game_number = 0
     intro()
-    while True:
+    while play_again(game_number):
         scores = {"player": 0, "computer": 0}
         while scores["player"] != 3 and scores["computer"] != 3:
             play_round(scores)
 
-        if not play_again():
-            break
-
-        os.system(CLEAR)
+        game_number += 1
+        display_games_played(game_number)
 
 main()
