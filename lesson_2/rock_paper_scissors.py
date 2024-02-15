@@ -31,11 +31,9 @@ def input_choice():
 def input_yes_no():
     while True:
         choice = input("==> ").lower()
-        if choice not in ["y", "n"]:
-            prompt("Please enter 'y' or 'n'")
-        else:
-            break
-    return choice
+        if choice in ["y", "n"]:
+            return choice
+        prompt("Please enter 'y' or 'n'")
 
 def format_choice(choice: str, parens=False):
     if parens and choice == "spock":
