@@ -8,11 +8,12 @@ of all numbers between 1 and the entered integer, inclusive.
 def get_num():
     while True:
         try:
-            num = int(input("Please enter an integer greater than 0: "))
+            nums_input = input("Please enter a list of integers greater than 0: ")
+            nums_list = list(nums_input.split())
+            nums = [int(n) for n in nums_list]
         except:
             continue
-        if num > 0:
-            return num
+        return nums
 
 def get_choice():
     while True:
@@ -22,24 +23,19 @@ def get_choice():
         elif choice == 'p':
             return choice, "product"
 
-def compute(target, choice):
+def compute(num_list, choice):
     if choice == "s":
-        return sum(range(1,target+1))
+        return sum(num_list)
     elif choice == "p":
-        index = target
         total = 1
-        while index > 1:
-            if choice == 's':
-                total += index
-            else:
-                total *= index
-            index -= 1
+        for num in num_list:
+            total *= num
         return total
 
 def main():
-    num = get_num()
+    num_list = get_num()
     choice, choice_word = get_choice()
-    total = compute(num, choice)
-    print(f"The {choice_word} of the integers between 1 and {num} is {total}")
+    total = compute(num_list, choice)
+    print(f"The {choice_word} of the integers {num_list} is {total}")
     
 main()
