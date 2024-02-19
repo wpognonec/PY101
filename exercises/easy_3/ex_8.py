@@ -17,13 +17,13 @@ negative values or values greater than 100.
 def get_grade(grade1, grade2, grade3):
     mean = (grade1 + grade2 + grade3) // 3
 
-    if mean in range(90, 101):
+    if mean >= 90:
         return "A"
-    if mean in range(80, 90):
+    if mean >= 80:
         return "B"
-    if mean in range(70, 80):
+    if mean >= 70:
         return "C"
-    if mean in range(60, 70):
+    if mean >= 60:
         return "D"
     return "F"
 
