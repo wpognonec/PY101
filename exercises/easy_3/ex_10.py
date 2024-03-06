@@ -13,11 +13,11 @@ def century(year):
     cent_str = str(cent)
     if cent % 100 in range (4,21):
         cent_str += "th"
-    if cent % 10 == 1:
+    elif cent % 10 == 1:
         cent_str += "st"
-    if cent % 10 == 2:
+    elif cent % 10 == 2:
         cent_str += "nd"
-    if cent % 10 == 3:
+    elif cent % 10 == 3:
         cent_str += "rd"
     return cent_str
 
